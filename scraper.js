@@ -1,16 +1,9 @@
+// scraper.js
 const axios = require("axios");
 const cheerio = require("cheerio");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const Company = require("./models/Company");
 const Keyword = require("./models/Keyword");
 const Match = require("./models/Match");
-
-dotenv.config();
-mongoose.connect(process.env.MONGO_URI).then(() => {
-  console.log("✅ Scraper connected to DB");
-  runScraper();
-});
 
 async function runScraper() {
   const users = await Keyword.find();
@@ -53,6 +46,7 @@ async function runScraper() {
     }
   }
 
-  console.log("Scraping complete.");
-  process.exit(0); // Exit script
+  console.log("Scraping cycle finished");
 }
+
+module.exports = runScraper;
